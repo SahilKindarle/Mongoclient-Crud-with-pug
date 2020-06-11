@@ -1,0 +1,21 @@
+html(lang='en')
+    head
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+        meta(charset='UTF-8')
+        title Names
+    body
+        h1 May Node and Express be with you.
+        form(action='/addnames' method='POST')
+            input(type='text' placeholder='name' name='fname')
+            input(type='text' placeholder='quote' name='lname')
+            button(type='submit') Submit
+
+
+        ul
+            - for(var i=0; i<fullname.length;i++)
+                li=fullname[i].fname +' '+fullname[i].lname  
+                    //- a(href=`/deletetask/${fullname[i]._id}`)
+                    //-     | Delete Button
+                    a.right(href='javascript:initDelete("'+fullname[i]._id+'")') Deleteee 
+
+        script(src="/main.js")
