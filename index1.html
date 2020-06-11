@@ -1,0 +1,76 @@
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Names</title>
+</head>
+
+<body>
+    <h1>May Node and Express be with you.</h1>
+    <form action="/addnames" method="POST">
+        <input type="text" placeholder="name" name="fname" />
+        <input type="text" placeholder="quote" name="lname" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="edit">
+
+    </p>
+
+    <p id="lol">
+    </p>
+
+
+    <!-- <script src="main.js"></script> -->
+    <script>
+        const url = 'http://localhost:3200/one';
+        var TodoItems = [];
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                TodoItems = data;
+                var listing = "<ul>";
+                for (var i = 0; i < TodoItems.length; i++) {
+                    listing +=
+                        `<br/> <br/><li>  fname - ${TodoItems[i].fname} <br>  Lname: ${TodoItems[i]
+                        .lname} </li> <br/> <button type='button' onclick='del("${TodoItems[i]._id}")'>Delete</button> <button type='button' onclick='edit("${i}")'>Edit</button>`
+                }
+                listing += "</ul>"
+                console.log(listing)
+                document.getElementById("lol").innerHTML = listing;
+                console.log("Done")
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+
+
+        // Delete
+        function del(id) {
+            console.log(id)
+            $.post('/deletetask/' + id + '/delete');
+        }
+
+        // Edit
+        function edit(id) {
+            console.log(TodoItems)
+            var edittags = ""
+            edittags = ` <form action="/addnames" method="POST">
+        <input type="text" placeholder="name" name="fname" value="${TodoItems[id].fname}" />
+        <input type="text" placeholder="quote" name="lname" value="${TodoItems[id].lname}" />
+        <button type="submit">Submit</button>
+    </form>`
+            document.getElementById("edit").innerHTML = edittags;
+
+            del(TodoItems[id]._id)
+
+        }
+    </script>
+</body>
+
+</html>
+
+
