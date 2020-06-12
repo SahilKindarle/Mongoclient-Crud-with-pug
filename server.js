@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 app.use(express.static('public'))
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 
 
 // app.use(function (req, res, next) {
