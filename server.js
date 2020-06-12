@@ -40,6 +40,34 @@ MongoClient.connect(url)
             })
         })
 
+        // Update
+        app.post('/update/:id', (req, res) => {
+            console.log(req.body)
+            console.log(req.params.id)
+            console.log("LOasalals  ", req.body)
+            db.collection('names').updateOne({
+                _id: new mongo.ObjectId(req.params.id)
+            }, {
+                $set: {
+                    "fname": req.body.fname,
+                    "lname": req.body.lname
+                }
+            }).then((result) => {
+                res.redirect('/index1')
+            })
+        })
+
+        // deleting data
+
+        app.post('/deletetask/:id/delete', (req, res) => {
+            var id = req.params.id
+            namesCollection.deleteOne({
+                _id: new mongo.ObjectId(id)
+            }).then((results) => {
+                console.log(results)
+            })
+        })
+
         // Getting Data
         app.get('/', (req, res) => {
 
@@ -55,8 +83,6 @@ MongoClient.connect(url)
                 .catch(error => console.error(error))
 
         })
-
-
 
         app.get('/one', (req, res) => {
 
@@ -75,19 +101,6 @@ MongoClient.connect(url)
 
 
 
-        // deleting data
-
-        app.post('/deletetask/:id/delete', (req, res) => {
-            console.log(req.params.id + "      dsdsdsdsds")
-            var id = req.params.id
-            console.log(id)
-            namesCollection.deleteOne({
-                _id: new mongo.ObjectId(id)
-            }, function (err, results) {});
-            res.json({
-                success: id
-            })
-        })
 
 
         app.get('/index1', (req, res) => {
