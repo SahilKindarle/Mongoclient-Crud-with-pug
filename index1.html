@@ -52,20 +52,25 @@
         function del(id) {
             console.log(id)
             $.post('/deletetask/' + id + '/delete');
+            location.reload();
         }
 
         // Edit
         function edit(id) {
             console.log(TodoItems)
             var edittags = ""
-            edittags = ` <form action="/addnames" method="POST">
-        <input type="text" placeholder="name" name="fname" value="${TodoItems[id].fname}" />
-        <input type="text" placeholder="quote" name="lname" value="${TodoItems[id].lname}" />
-        <button type="submit">Submit</button>
-    </form>`
+            //         edittags = ` <form action="/update" method="POST">
+            //     <input type="text" placeholder="name" name="fname" value="${TodoItems[id].fname}" />
+            //     <input type="text" placeholder="quote" name="lname" value="${TodoItems[id].lname}" />
+            //     <button type="submit">Update</button>
+            // </form>`
+            edittags = '<form action="/update/' + TodoItems[id]._id +
+                '" method="POST" ><input type="text" placeholder="name" name="fname" value="' + TodoItems[id].fname +
+                '" /><input type="text" placeholder="quote" name="lname"  value="' + TodoItems[id].lname +
+                '" /><button type="submit">Submit</button></form>'
             document.getElementById("edit").innerHTML = edittags;
 
-            del(TodoItems[id]._id)
+            // del(TodoItems[id]._id)
 
         }
     </script>
