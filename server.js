@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const mongo = require('mongodb')
 const url = 'mongodb://localhost:27017/'
+const cors = require('cors')
 
 const app = express()
 app.use(bodyParser.urlencoded({
@@ -13,11 +14,12 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'))
 app.set('view engine', 'pug')
 
+app.use(cors())
 
 // app.use(function (req, res, next) {
 
 //     // Website you wish to allow to connect
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:27017/sampledb/names');
+//     res.setHeader('Access-Control-Allow-Origin', 'file:///Users/lolxd/Node-Express-Mongodb/index1.html');
 
 // });
 
@@ -31,7 +33,7 @@ MongoClient.connect(url)
 
         // Adding data
         app.post('/addnames', (req, res) => {
-
+            console.log("req.body")
             console.log(req.body)
             db.collection('names').insertOne(req.body).then((result) => {
                 res.redirect('/index1')
